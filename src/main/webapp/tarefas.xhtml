@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<head>
+    <meta charset="UTF-8" />
+    <title>Gerenciador de Tarefas</title>
+    <link rel="stylesheet" type="text/css" href="styles.css" />
+</head>
+<body>
+    <div class="container">
+        <h:form>
+           
+            <div class="task-form-container">
+                <h3 class="form-title">Nova Tarefa</h3>
+
+                <h:panelGrid columns="2" cellpadding="5" class="task-form">
+                    <h:outputLabel for="titulo" value="Título:" />
+                    <h:inputText id="titulo" value="#{tarefaBean.tarefa.titulo}" required="true" class="input-field" />
+
+                    <h:outputLabel for="descricao" value="Descrição:" />
+                    <h:inputTextarea id="descricao" value="#{tarefaBean.tarefa.descricao}" rows="3" cols="30" class="input-field" />
+
+                    <h:outputLabel for="responsavel" value="Responsável:" />
+                    <h:inputText id="responsavel" value="#{tarefaBean.tarefa.responsavel}" class="input-field" />
+
+                    <h:outputLabel for="prioridade" value="Prioridade:" />
+                    <h:selectOneMenu id="prioridade" value="#{tarefaBean.tarefa.prioridade}" class="input-field">
+                        <f:selectItem itemValue="Alta" itemLabel="Alta" />
+                        <f:selectItem itemValue="Média" itemLabel="Média" />
+                        <f:selectItem itemValue="Baixa" itemLabel="Baixa" />
+                    </h:selectOneMenu>
+
+                    <h:outputLabel for="deadline" value="Data de Entrega:" />
+                    <h:inputText id="deadline" value="#{tarefaBean.tarefa.deadline}" class="input-field" />
+
+                    <!-- Botão para salvar a tarefa -->
+                    <h:commandButton value="Salvar" action="#{tarefaBean.salvar}" class="btn-save" />
+                </h:panelGrid>
+            </div>    
+            <br/><br/>
+            <h3 class="list-title">Lista de Tarefas</h3>
+            <div class="task-list-container">
+                <h:dataTable value="#{tarefaBean.tarefas}" var="tarefa" border="1" cellpadding="5" class="task-list">
+                    <h:column>
+                        <f:facet name="header">Título</f:facet>
+                        #{tarefa.titulo}
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">Descrição</f:facet>
+                        #{tarefa.descricao}
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">Responsável</f:facet>
+                        #{tarefa.responsavel}
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">Prioridade</f:facet>
+                        #{tarefa.prioridade}
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">Deadline</f:facet>
+                        #{tarefa.deadline}
+                    </h:column>
+
+                
+                    <h:column>
+                        <f:facet name="header">Ações</f:facet>
+                        <h:commandButton value="Editar" action="#{tarefaBean.editar(tarefa.id)}" class="btn-edit" />
+                        <h:commandButton value="Remover" action="#{tarefaBean.remover(tarefa.id)}" class="btn-remove" />
+                    </h:column>
+                </h:dataTable>
+            </div>
+
+        </h:form>
+    </div>
+</body>
+</html>
